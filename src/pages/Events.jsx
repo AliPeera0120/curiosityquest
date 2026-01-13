@@ -1,160 +1,144 @@
-import React, { useState } from 'react';
-import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Calendar, History, MapPin, Users, Loader2 } from 'lucide-react';
+import React from 'react';
+import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
-import EventCard from '../components/events/EventCard';
 
 export default function Events() {
-  const [activeTab, setActiveTab] = useState('upcoming');
-
-  const { data: events = [], isLoading } = useQuery({
-    queryKey: ['events'],
-    queryFn: () => base44.entities.Event.list('date'),
-  });
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const upcomingEvents = events.filter((event) => {
-    const eventDate = new Date(event.date);
-    return eventDate >= today && !event.is_past;
-  });
-
-  const pastEvents = events.filter((event) => {
-    const eventDate = new Date(event.date);
-    return eventDate < today || event.is_past;
-  }).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const events = [
+    {
+      title: "Lava Lamp Fun",
+      date: "July 16th, 2026",
+      time: "2:00 PM - 2:45 PM",
+      ageGroup: "Ages 8-11",
+      location: "Phoenixville Area Library",
+      description: "Get ready for some fizzy fun! In this experiment, kids will make their very own lava lamps using water, oil, Alka-Seltzer, and a splash of food coloring. Kids will get to see science in action while learning about density and chemical reactions in a way that's super fun and easy to understand. This event gives kids the chance to have fun and learn new things in the summer.",
+      posterUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/c9c721d64_Science_Fun_Fiyer.png"
+    },
+    {
+      title: "Elephant Toothpaste Adventure",
+      date: "July 23rd, 2026",
+      time: "2:00 PM - 2:45 PM",
+      ageGroup: "Ages 8-11",
+      location: "Phoenixville Area Library",
+      description: "Time to mix science and fun and make foam fly! In this exciting experiment, kids will create a foamy explosion that looks just like a giant tube of toothpaste—perfect for an elephant! Using simple ingredients like hydrogen peroxide, soap, and yeast, they'll learn about chemical reactions and how substances break down to create bubbles and foam. It's a hands-on, exciting way to see science in action while having a blast doing it!",
+      posterUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/c9c721d64_Science_Fun_Fiyer.png"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#ed7219] to-[#d86515] text-white py-16 px-4">
+      <div className="bg-gradient-to-br from-[#055b8e] to-[#044a73] text-white py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#ed7219] mb-6"
+          >
+            <Calendar className="w-8 h-8 text-white" />
+          </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl font-bold mb-4"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
-            Events
+            Upcoming Events
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-white/90 max-w-2xl mx-auto"
+            transition={{ delay: 0.2 }}
+            className="text-xl text-white/80 max-w-2xl mx-auto"
           >
-            Join us at libraries and community centers for free, hands-on STEM adventures
+            Join us for hands-on STEM experiments and community learning experiences
           </motion.p>
         </div>
       </div>
 
-      {/* Community Focus Banner */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#055b8e]/10 flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-[#055b8e]" />
+      <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
+        {events.map((event, index) => (
+          <motion.section
+            key={event.title}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.2 }}
+            className="bg-white rounded-3xl overflow-hidden shadow-lg border-2 border-gray-100"
+          >
+            <div className="grid lg:grid-cols-5 gap-0">
+              {/* Poster Image */}
+              <div className="lg:col-span-2 bg-gradient-to-br from-[#ed7219]/10 to-[#055b8e]/10 p-8 flex items-center justify-center">
+                <img 
+                  src={event.posterUrl}
+                  alt={`${event.title} Poster`}
+                  className="w-full max-w-md rounded-2xl shadow-xl"
+                />
               </div>
-              <div>
-                <p className="font-semibold text-[#055b8e]" style={{ fontFamily: 'Nunito, sans-serif' }}>Local Venues</p>
-                <p className="text-gray-600 text-sm">Libraries & community centers</p>
+
+              {/* Event Details */}
+              <div className="lg:col-span-3 p-8 lg:p-12">
+                <h2 
+                  className="text-3xl sm:text-4xl font-bold text-[#055b8e] mb-2"
+                  style={{ fontFamily: 'Nunito, sans-serif' }}
+                >
+                  {event.title}
+                </h2>
+                <p className="text-xl text-[#ed7219] font-semibold mb-6">
+                  {event.date}
+                </p>
+
+                <h3 
+                  className="text-xl font-bold text-[#055b8e] mb-4 flex items-center gap-2"
+                  style={{ fontFamily: 'Nunito, sans-serif' }}
+                >
+                  <MapPin className="w-5 h-5 text-[#ed7219]" />
+                  {event.location}
+                </h3>
+
+                <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex items-center gap-2 bg-[#055b8e]/5 rounded-full px-4 py-2">
+                    <Clock className="w-5 h-5 text-[#055b8e]" />
+                    <span className="font-medium text-[#055b8e]">{event.time}</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-[#ed7219]/10 rounded-full px-4 py-2">
+                    <Users className="w-5 h-5 text-[#ed7219]" />
+                    <span className="font-medium text-[#ed7219]">{event.ageGroup}</span>
+                  </div>
+                </div>
+
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {event.description}
+                  </p>
+                </div>
+
+                <div className="mt-8 p-6 bg-gradient-to-r from-[#ed7219]/10 to-[#055b8e]/10 rounded-2xl border-2 border-[#ed7219]/20">
+                  <p className="text-center text-lg font-semibold text-[#055b8e] mb-2">
+                    Registration Required
+                  </p>
+                  <p className="text-center text-gray-600">
+                    Contact us to reserve your spot or scan the QR code on the poster
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="hidden md:block w-px h-12 bg-gray-200" />
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#ed7219]/10 flex items-center justify-center">
-                <Users className="w-6 h-6 text-[#ed7219]" />
-              </div>
-              <div>
-                <p className="font-semibold text-[#055b8e]" style={{ fontFamily: 'Nunito, sans-serif' }}>Family Friendly</p>
-                <p className="text-gray-600 text-sm">Perfect for kids & parents</p>
-              </div>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-gray-200" />
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#055b8e]/10 flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-[#055b8e]" />
-              </div>
-              <div>
-                <p className="font-semibold text-[#055b8e]" style={{ fontFamily: 'Nunito, sans-serif' }}>Always Free</p>
-                <p className="text-gray-600 text-sm">Open to everyone</p>
-              </div>
-            </div>
-          </div>
-        </div>
+          </motion.section>
+        ))}
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 h-14 bg-white shadow-sm rounded-xl p-1 mb-8">
-            <TabsTrigger 
-              value="upcoming" 
-              className="rounded-lg data-[state=active]:bg-[#055b8e] data-[state=active]:text-white text-lg font-medium"
-            >
-              <Calendar className="w-5 h-5 mr-2" />
-              Upcoming
-            </TabsTrigger>
-            <TabsTrigger 
-              value="past" 
-              className="rounded-lg data-[state=active]:bg-[#055b8e] data-[state=active]:text-white text-lg font-medium"
-            >
-              <History className="w-5 h-5 mr-2" />
-              Past Events
-            </TabsTrigger>
-          </TabsList>
-
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-[#055b8e]" />
-            </div>
-          ) : (
-            <>
-              <TabsContent value="upcoming">
-                {upcomingEvents.length === 0 ? (
-                  <div className="text-center py-20 bg-white rounded-2xl">
-                    <Calendar className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                      No upcoming events
-                    </h3>
-                    <p className="text-gray-400">
-                      Check back soon for new STEM adventures!
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {upcomingEvents.map((event, index) => (
-                      <EventCard key={event.id} event={event} index={index} />
-                    ))}
-                  </div>
-                )}
-              </TabsContent>
-
-              <TabsContent value="past">
-                {pastEvents.length === 0 ? (
-                  <div className="text-center py-20 bg-white rounded-2xl">
-                    <History className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                      No past events yet
-                    </h3>
-                    <p className="text-gray-400">
-                      Our event history will appear here
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {pastEvents.map((event, index) => (
-                      <EventCard key={event.id} event={event} isPast index={index} />
-                    ))}
-                  </div>
-                )}
-              </TabsContent>
-            </>
-          )}
-        </Tabs>
+      {/* Footer Note */}
+      <div className="bg-[#055b8e] text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-lg mb-2">
+            Questions about our events?
+          </p>
+          <a 
+            href="mailto:curiosity.quest25@gmail.com" 
+            className="text-[#ed7219] hover:underline font-semibold"
+          >
+            curiosity.quest25@gmail.com
+          </a>
+        </div>
       </div>
     </div>
   );
