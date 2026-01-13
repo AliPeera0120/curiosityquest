@@ -1,38 +1,19 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X, Globe, Code, Lightbulb, Gamepad2, BookOpen } from 'lucide-react';
+import { X, Globe, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
-const categoryConfig = {
-  how_coding_works: {
-    icon: Lightbulb,
-    label: 'How Coding Works',
-    gradient: 'from-amber-500 to-orange-500',
-  },
-  code_walkthrough: {
-    icon: Code,
-    label: 'Code Walkthrough',
-    gradient: 'from-indigo-500 to-blue-500',
-  },
-  logic_game: {
-    icon: Gamepad2,
-    label: 'Logic Game',
-    gradient: 'from-green-500 to-emerald-500',
-  },
-  stem_explainer: {
-    icon: BookOpen,
-    label: 'STEM Explainer',
-    gradient: 'from-purple-500 to-pink-500',
-  },
+const difficultyColors = {
+  'Beginner': 'bg-green-100 text-green-800',
+  'Intermediate': 'bg-blue-100 text-blue-800',
+  'Advanced': 'bg-purple-100 text-purple-800',
+  'Project': 'bg-orange-100 text-orange-800',
 };
 
 export default function VirtualActivityDetail({ activity, onClose }) {
   if (!activity) return null;
-
-  const config = categoryConfig[activity.category] || categoryConfig.stem_explainer;
-  const Icon = config.icon;
 
   return (
     <AnimatePresence>
@@ -51,7 +32,7 @@ export default function VirtualActivityDetail({ activity, onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className={`bg-gradient-to-r ${config.gradient} p-6 text-white relative`}>
+          <div className="bg-gradient-to-r from-[#055b8e] to-[#044a73] p-6 text-white relative">
             <Button
               variant="ghost"
               size="icon"
@@ -62,9 +43,12 @@ export default function VirtualActivityDetail({ activity, onClose }) {
             </Button>
             
             <div className="flex items-center gap-3 mb-3">
-              <Icon className="w-8 h-8" />
-              <Badge className="bg-white/20 text-white">
-                {config.label}
+              <Code className="w-8 h-8" />
+              <Badge className="bg-[#ed7219] text-white">
+                {activity.language}
+              </Badge>
+              <Badge className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
+                {activity.difficulty}
               </Badge>
             </div>
             <h2 
@@ -78,13 +62,13 @@ export default function VirtualActivityDetail({ activity, onClose }) {
           <div className="p-6 space-y-6">
             {/* Description */}
             <div className="bg-gray-50 rounded-2xl p-5">
-              <p className="text-gray-700 text-lg leading-relaxed">
+              <p className="text-gray-700 text-lg leading-loose">
                 {activity.description}
               </p>
             </div>
 
             {/* Main Content */}
-            <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#055b8e] prose-a:text-[#ed7219] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded">
+            <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#055b8e] prose-a:text-[#ed7219] prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-p:leading-loose prose-pre:my-6">
               <ReactMarkdown>
                 {activity.content}
               </ReactMarkdown>
@@ -93,11 +77,11 @@ export default function VirtualActivityDetail({ activity, onClose }) {
             {/* Real World Connection */}
             {activity.real_world_connection && (
               <div className="bg-[#055b8e]/5 border border-[#055b8e]/20 rounded-2xl p-5">
-                <h3 className="font-bold text-[#055b8e] text-lg mb-2 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                <h3 className="font-bold text-[#055b8e] text-lg mb-3 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   <Globe className="w-5 h-5 text-[#ed7219]" />
                   Real-World Connection
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-loose">
                   {activity.real_world_connection}
                 </p>
               </div>

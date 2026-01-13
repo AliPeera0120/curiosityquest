@@ -21,18 +21,26 @@ const topics = [
   { id: 'computer_science', label: 'Computer Science', icon: Cpu },
 ];
 
-const virtualCategories = [
-  { id: 'all', label: 'All Activities' },
-  { id: 'how_coding_works', label: 'How Coding Works' },
-  { id: 'code_walkthrough', label: 'Code Walkthroughs' },
-  { id: 'logic_game', label: 'Logic Games' },
-  { id: 'stem_explainer', label: 'STEM Explainers' },
+const languageCategories = [
+  { id: 'all', label: 'All Languages' },
+  { id: 'Python', label: 'Python' },
+  { id: 'Java', label: 'Java' },
+  { id: 'JavaScript & HTML', label: 'JavaScript & HTML' },
+];
+
+const difficultyLevels = [
+  { id: 'all', label: 'All Levels' },
+  { id: 'Beginner', label: 'Beginner' },
+  { id: 'Intermediate', label: 'Intermediate' },
+  { id: 'Advanced', label: 'Advanced' },
+  { id: 'Project', label: 'Projects & Games' },
 ];
 
 export default function Activities() {
   const [mainTab, setMainTab] = useState('hands-on');
   const [selectedTopic, setSelectedTopic] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedLanguage, setSelectedLanguage] = useState('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExperiment, setSelectedExperiment] = useState(null);
   const [selectedActivity, setSelectedActivity] = useState(null);
@@ -56,11 +64,12 @@ export default function Activities() {
   });
 
   const filteredVirtualActivities = virtualActivities.filter((act) => {
-    const matchesCategory = selectedCategory === 'all' || act.category === selectedCategory;
+    const matchesLanguage = selectedLanguage === 'all' || act.language === selectedLanguage;
+    const matchesDifficulty = selectedDifficulty === 'all' || act.difficulty === selectedDifficulty;
     const matchesSearch = !searchQuery || 
       act.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       act.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesLanguage && matchesDifficulty && matchesSearch;
   });
 
   return (
@@ -172,22 +181,46 @@ export default function Activities() {
 
           {/* Virtual Activities */}
           <TabsContent value="virtual" className="mt-8">
-            {/* Category Filters */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {virtualCategories.map((cat) => (
-                <Button
-                  key={cat.id}
-                  variant={selectedCategory === cat.id ? 'default' : 'outline'}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`rounded-full ${
-                    selectedCategory === cat.id 
-                      ? 'bg-[#055b8e] hover:bg-[#044a73]' 
-                      : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
-                  }`}
-                >
-                  {cat.label}
-                </Button>
-              ))}
+            {/* Language Filters */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Select Language</h3>
+              <div className="flex flex-wrap justify-center gap-2">
+                {languageCategories.map((cat) => (
+                  <Button
+                    key={cat.id}
+                    variant={selectedLanguage === cat.id ? 'default' : 'outline'}
+                    onClick={() => setSelectedLanguage(cat.id)}
+                    className={`rounded-full ${
+                      selectedLanguage === cat.id 
+                        ? 'bg-[#055b8e] hover:bg-[#044a73]' 
+                        : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
+                    }`}
+                  >
+                    {cat.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Difficulty Filters */}
+            <div className="mb-8">
+              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Select Level</h3>
+              <div className="flex flex-wrap justify-center gap-2">
+                {difficultyLevels.map((level) => (
+                  <Button
+                    key={level.id}
+                    variant={selectedDifficulty === level.id ? 'default' : 'outline'}
+                    onClick={() => setSelectedDifficulty(level.id)}
+                    className={`rounded-full ${
+                      selectedDifficulty === level.id 
+                        ? 'bg-[#ed7219] hover:bg-[#d86515]' 
+                        : 'hover:bg-[#ed7219]/10 hover:text-[#ed7219] hover:border-[#ed7219]'
+                    }`}
+                  >
+                    {level.label}
+                  </Button>
+                ))}
+              </div>
             </div>
 
             {loadingVirtual ? (
