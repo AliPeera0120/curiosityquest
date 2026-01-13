@@ -12,6 +12,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Activities', page: 'Activities' },
     { name: 'Events', page: 'Events' },
     { name: 'This Week in STEM', page: 'ThisWeekInSTEM' },
+    { name: 'Careers in STEM', page: 'CareersInSTEM' },
   ];
 
   return (
@@ -43,9 +44,11 @@ export default function Layout({ children, currentPageName }) {
               to={createPageUrl('Home')} 
               className="flex items-center gap-2 group"
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#ed7219] to-[#055b8e] flex items-center justify-center transform group-hover:scale-105 transition-transform">
-                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </div>
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/118c89122_Curiosity.png"
+                alt="CuriosityQuest Logo"
+                className="w-10 h-10 md:w-12 md:h-12 object-contain transform group-hover:scale-105 transition-transform"
+              />
               <span className="text-xl md:text-2xl font-bold text-[#055b8e]" style={{ fontFamily: 'Nunito, sans-serif' }}>
                 CuriosityQuest
               </span>
@@ -119,9 +122,11 @@ export default function Layout({ children, currentPageName }) {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
+                <img 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/118c89122_Curiosity.png"
+                  alt="CuriosityQuest Logo"
+                  className="w-10 h-10 object-contain"
+                />
                 <span className="text-xl font-bold" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   CuriosityQuest
                 </span>
@@ -149,13 +154,13 @@ export default function Layout({ children, currentPageName }) {
               </nav>
             </div>
 
-            {/* Safety */}
+            {/* Mission */}
             <div>
               <h4 className="font-bold text-lg mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                Safe Learning
+                Our Mission
               </h4>
               <p className="text-white/80 leading-relaxed">
-                All our content is designed to be age-appropriate and safe for children ages 8–16. We prioritize inclusive, accessible learning for everyone.
+                Making STEM education accessible, engaging, and fun for curious minds everywhere.
               </p>
             </div>
           </div>

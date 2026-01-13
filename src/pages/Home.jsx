@@ -3,7 +3,7 @@ import HeroSection from '../components/home/HeroSection';
 import WhatIsCQ from '../components/home/WhatIsCQ';
 import WhatWeDo from '../components/home/WhatWeDo';
 import WhoItsFor from '../components/home/WhoItsFor';
-import SafetySection from '../components/home/SafetySection';
+import ContributeSection from '../components/home/ContributeSection';
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       <WhatIsCQ />
       <WhatWeDo />
       <WhoItsFor />
-      <SafetySection />
+      <ContributeSection />
     </div>
   );
 }
