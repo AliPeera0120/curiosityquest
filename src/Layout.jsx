@@ -13,6 +13,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Events', page: 'Events' },
     { name: 'This Week in STEM', page: 'ThisWeekInSTEM' },
     { name: 'Careers in STEM', page: 'CareersInSTEM' },
+    { name: 'Make an Impact', page: 'MakeAnImpact' },
   ];
 
   return (
