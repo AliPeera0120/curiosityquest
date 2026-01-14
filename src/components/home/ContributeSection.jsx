@@ -1,14 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../../utils';
 import { Button } from '@/components/ui/button';
 import { Heart, Beaker, Monitor, Library, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function ContributeSection() {
-  const handleContribute = () => {
-    // Placeholder for donation processor integration
-    alert('Thank you for your interest in supporting CuriosityQuest! This will redirect to our secure donation processor.');
-  };
-
   const impactAreas = [
     {
       icon: Beaker,
@@ -43,7 +40,7 @@ export default function ContributeSection() {
             className="text-3xl sm:text-4xl font-bold text-[#055b8e] mb-4"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
-            Contribute Now
+            Make an Impact
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Your support helps us inspire the next generation of scientists, engineers, and innovators through accessible STEM education.
@@ -82,16 +79,17 @@ export default function ContributeSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button
-            onClick={handleContribute}
-            size="lg"
-            className="bg-[#ed7219] hover:bg-[#d86515] text-white text-lg px-10 py-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
-          >
-            Support CuriosityQuest
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to={createPageUrl('MakeAnImpact')}>
+            <Button
+              size="lg"
+              className="bg-[#ed7219] hover:bg-[#d86515] text-white text-lg px-10 py-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
+            >
+              Support CuriosityQuest
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
           <p className="text-sm text-gray-500 mt-4">
-            All contributions support educational programming and are processed securely
+            Learn more about how your contribution makes a difference
           </p>
         </motion.div>
       </div>

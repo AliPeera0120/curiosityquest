@@ -12,7 +12,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Activities', page: 'Activities' },
     { name: 'Events', page: 'Events' },
     { name: 'This Week in STEM', page: 'ThisWeekInSTEM' },
-    { name: 'Careers in STEM', page: 'CareersInSTEM' },
+    { name: 'Careers', page: 'CareersInSTEM' },
     { name: 'Make an Impact', page: 'MakeAnImpact' },
   ];
 
