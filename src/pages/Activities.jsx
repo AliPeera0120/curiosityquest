@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search, Beaker, Monitor, Atom, Leaf, FlaskConical, Wrench, Cpu, Loader2 } from 'lucide-react';
+import { Search, Beaker, Code, Atom, Leaf, FlaskConical, Wrench, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ExperimentCard from '../components/activities/ExperimentCard';
 import ExperimentDetail from '../components/activities/ExperimentDetail';
@@ -18,14 +18,13 @@ const topics = [
   { id: 'biology', label: 'Biology', icon: Leaf },
   { id: 'chemistry', label: 'Chemistry', icon: FlaskConical },
   { id: 'engineering', label: 'Engineering', icon: Wrench },
-  { id: 'computer_science', label: 'Computer Science', icon: Cpu },
 ];
 
-const languageCategories = [
-  { id: 'all', label: 'All Languages' },
-  { id: 'Python', label: 'Python' },
-  { id: 'Java', label: 'Java' },
-  { id: 'JavaScript & HTML', label: 'JavaScript & HTML' },
+const activityTypes = [
+  { id: 'all', label: 'All' },
+  { id: 'Lesson', label: 'Lessons' },
+  { id: 'Program', label: 'Programs' },
+  { id: 'Project', label: 'Projects' },
 ];
 
 const difficultyLevels = [
@@ -33,13 +32,12 @@ const difficultyLevels = [
   { id: 'Beginner', label: 'Beginner' },
   { id: 'Intermediate', label: 'Intermediate' },
   { id: 'Advanced', label: 'Advanced' },
-  { id: 'Project', label: 'Projects & Games' },
 ];
 
 export default function Activities() {
   const [mainTab, setMainTab] = useState('hands-on');
   const [selectedTopic, setSelectedTopic] = useState('all');
-  const [selectedLanguage, setSelectedLanguage] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExperiment, setSelectedExperiment] = useState(null);
@@ -47,7 +45,7 @@ export default function Activities() {
 
   const { data: experiments = [], isLoading: loadingExperiments } = useQuery({
     queryKey: ['experiments'],
-    queryFn: () => base44.entities.Experiment.list('-created_date'),
+    queryFn: () => base44.entities.Experiment.list('order'),
   });
 
   const { data: virtualActivities = [], isLoading: loadingVirtual } = useQuery({
@@ -64,12 +62,12 @@ export default function Activities() {
   });
 
   const filteredVirtualActivities = virtualActivities.filter((act) => {
-    const matchesLanguage = selectedLanguage === 'all' || act.language === selectedLanguage;
+    const matchesType = selectedType === 'all' || act.activity_type === selectedType;
     const matchesDifficulty = selectedDifficulty === 'all' || act.difficulty === selectedDifficulty;
     const matchesSearch = !searchQuery || 
       act.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       act.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesLanguage && matchesDifficulty && matchesSearch;
+    return matchesType && matchesDifficulty && matchesSearch;
   });
 
   return (
@@ -91,7 +89,7 @@ export default function Activities() {
             transition={{ delay: 0.1 }}
             className="text-xl text-white/80 max-w-2xl mx-auto"
           >
-            Explore hands-on experiments and virtual STEM activities designed for curious minds
+            Explore hands-on experiments and coding activities designed for curious minds
           </motion.p>
         </div>
       </div>
@@ -108,11 +106,11 @@ export default function Activities() {
               Hands-On
             </TabsTrigger>
             <TabsTrigger 
-              value="virtual" 
+              value="code" 
               className="rounded-lg data-[state=active]:bg-[#055b8e] data-[state=active]:text-white text-lg font-medium"
             >
-              <Monitor className="w-5 h-5 mr-2" />
-              Virtual
+              <Code className="w-5 h-5 mr-2" />
+              Code
             </TabsTrigger>
           </TabsList>
 
@@ -179,24 +177,24 @@ export default function Activities() {
             )}
           </TabsContent>
 
-          {/* Virtual Activities */}
-          <TabsContent value="virtual" className="mt-8">
-            {/* Language Filters */}
+          {/* Code Activities */}
+          <TabsContent value="code" className="mt-8">
+            {/* Type Filters */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Select Language</h3>
+              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Activity Type</h3>
               <div className="flex flex-wrap justify-center gap-2">
-                {languageCategories.map((cat) => (
+                {activityTypes.map((type) => (
                   <Button
-                    key={cat.id}
-                    variant={selectedLanguage === cat.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedLanguage(cat.id)}
+                    key={type.id}
+                    variant={selectedType === type.id ? 'default' : 'outline'}
+                    onClick={() => setSelectedType(type.id)}
                     className={`rounded-full ${
-                      selectedLanguage === cat.id 
+                      selectedType === type.id 
                         ? 'bg-[#055b8e] hover:bg-[#044a73]' 
                         : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
                     }`}
                   >
-                    {cat.label}
+                    {type.label}
                   </Button>
                 ))}
               </div>
@@ -204,7 +202,7 @@ export default function Activities() {
 
             {/* Difficulty Filters */}
             <div className="mb-8">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Select Level</h3>
+              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Difficulty Level</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {difficultyLevels.map((level) => (
                   <Button
@@ -229,7 +227,7 @@ export default function Activities() {
               </div>
             ) : filteredVirtualActivities.length === 0 ? (
               <div className="text-center py-20">
-                <Monitor className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                <Code className="w-16 h-16 mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   No activities found
                 </h3>

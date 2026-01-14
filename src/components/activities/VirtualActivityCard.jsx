@@ -7,7 +7,12 @@ const difficultyColors = {
   'Beginner': 'bg-green-100 text-green-800 border-green-300',
   'Intermediate': 'bg-blue-100 text-blue-800 border-blue-300',
   'Advanced': 'bg-purple-100 text-purple-800 border-purple-300',
-  'Project': 'bg-orange-100 text-orange-800 border-orange-300',
+};
+
+const typeColors = {
+  'Lesson': 'bg-sky-500',
+  'Program': 'bg-emerald-500',
+  'Project': 'bg-amber-500',
 };
 
 export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
@@ -21,9 +26,14 @@ export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-[#055b8e]/5 to-[#ed7219]/5 p-4 flex items-center justify-between gap-2">
-        <Badge className="bg-[#055b8e] text-white">
-          {activity.language}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge className={`${typeColors[activity.activity_type] || 'bg-gray-500'} text-white`}>
+            {activity.activity_type}
+          </Badge>
+          <Badge className="bg-[#055b8e] text-white">
+            Python
+          </Badge>
+        </div>
         <Badge variant="outline" className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
           {activity.difficulty}
         </Badge>
@@ -31,13 +41,13 @@ export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
       
       <div className="p-5">
         <h3 
-          className="font-bold text-[#055b8e] text-xl mb-2 group-hover:text-[#ed7219] transition-colors"
+          className="font-bold text-[#055b8e] text-lg mb-2 group-hover:text-[#ed7219] transition-colors"
           style={{ fontFamily: 'Nunito, sans-serif' }}
         >
-          {activity.title}
+          Python - {activity.activity_type} {activity.order}: {activity.title}
         </h3>
 
-        <p className="text-gray-600 mb-4 line-clamp-2">
+        <p className="text-gray-600 mb-4 line-clamp-2 text-sm">
           {activity.description}
         </p>
 
