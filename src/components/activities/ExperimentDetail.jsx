@@ -1,7 +1,7 @@
 import React from 'react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X, Beaker, ListChecks, BookOpen, Package } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { X, Beaker, ListChecks, BookOpen, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const topicLabels = {
@@ -47,7 +47,7 @@ export default function ExperimentDetail({ experiment, onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#055b8e] to-[#044a73] p-6 text-white relative">
+          <div className={`${topicColors[experiment.topic]} p-6 text-white relative`}>
             <Button
               variant="ghost"
               size="icon"
@@ -59,10 +59,10 @@ export default function ExperimentDetail({ experiment, onClose }) {
             
             <div className="flex items-center gap-3 mb-3">
               <Beaker className="w-8 h-8" />
-              <Badge className={`${topicColors[experiment.topic]} text-white`}>
-                {topicLabels[experiment.topic] || experiment.topic}
+              <Badge className="bg-white/20 text-white border-0">
+                {topicLabels[experiment.topic]}
               </Badge>
-              <Badge className={difficultyColors[experiment.difficulty] || 'bg-gray-100 text-gray-800'}>
+              <Badge className={difficultyColors[experiment.difficulty]}>
                 {experiment.difficulty}
               </Badge>
             </div>
@@ -76,46 +76,46 @@ export default function ExperimentDetail({ experiment, onClose }) {
 
           <div className="p-6 space-y-8">
             {/* Materials Section */}
-            <div className="bg-[#ed7219]/5 border-2 border-[#ed7219]/20 rounded-2xl p-6">
-              <h3 className="font-bold text-[#ed7219] text-xl mb-4 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                <Package className="w-6 h-6" />
+            <div className="bg-blue-50 rounded-2xl p-6">
+              <h3 className="font-bold text-[#055b8e] text-xl mb-4 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                <ListChecks className="w-6 h-6 text-[#ed7219]" />
                 Materials Needed
               </h3>
-              <ul className="space-y-2">
+              <ul className="grid sm:grid-cols-2 gap-3">
                 {materials.map((material, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[#ed7219] mt-2 flex-shrink-0"></span>
-                    <span className="text-gray-700 text-lg">{material}</span>
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#055b8e] mt-2 flex-shrink-0" />
+                    <span className="text-gray-700">{material}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Instructions Section */}
-            <div className="bg-[#055b8e]/5 border-2 border-[#055b8e]/20 rounded-2xl p-6">
+            <div className="bg-orange-50 rounded-2xl p-6">
               <h3 className="font-bold text-[#055b8e] text-xl mb-4 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                <ListChecks className="w-6 h-6" />
+                <BookOpen className="w-6 h-6 text-[#ed7219]" />
                 Step-by-Step Instructions
               </h3>
               <ol className="space-y-4">
                 {instructions.map((instruction, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <span className="w-8 h-8 rounded-full bg-[#055b8e] text-white flex items-center justify-center font-bold flex-shrink-0">
+                  <li key={index} className="flex gap-4">
+                    <span className="w-8 h-8 rounded-full bg-[#ed7219] text-white font-bold flex items-center justify-center flex-shrink-0">
                       {index + 1}
                     </span>
-                    <span className="text-gray-700 text-lg leading-relaxed pt-1">{instruction.replace(/^\d+\.\s*/, '')}</span>
+                    <span className="text-gray-700 pt-1">{instruction.replace(/^\d+\.\s*/, '')}</span>
                   </li>
                 ))}
               </ol>
             </div>
 
             {/* What You Learn Section */}
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6">
-              <h3 className="font-bold text-green-700 text-xl mb-4 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                <BookOpen className="w-6 h-6" />
+            <div className="bg-green-50 rounded-2xl p-6">
+              <h3 className="font-bold text-[#055b8e] text-xl mb-4 flex items-center gap-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                <Lightbulb className="w-6 h-6 text-[#ed7219]" />
                 What We Learned
               </h3>
-              <p className="text-gray-700 text-lg leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-lg">
                 {experiment.what_you_learn}
               </p>
             </div>
