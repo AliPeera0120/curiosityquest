@@ -10,9 +10,15 @@ const difficultyColors = {
 };
 
 const typeColors = {
-  'Lesson': 'bg-sky-500',
-  'Program': 'bg-emerald-500',
-  'Project': 'bg-amber-500',
+  'Lesson': 'bg-[#055b8e]',
+  'Program': 'bg-[#ed7219]',
+  'Project': 'bg-gradient-to-r from-[#055b8e] to-[#ed7219]',
+};
+
+const typeIcons = {
+  'Lesson': '📚',
+  'Program': '💻',
+  'Project': '🚀',
 };
 
 export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
@@ -27,11 +33,8 @@ export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
       {/* Header */}
       <div className="bg-gradient-to-r from-[#055b8e]/5 to-[#ed7219]/5 p-4 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Badge className={`${typeColors[activity.activity_type] || 'bg-gray-500'} text-white`}>
-            {activity.activity_type}
-          </Badge>
-          <Badge className="bg-[#055b8e] text-white">
-            Python
+          <Badge className={`${typeColors[activity.activity_type]} text-white`}>
+            {typeIcons[activity.activity_type]} {activity.activity_type}
           </Badge>
         </div>
         <Badge variant="outline" className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
@@ -40,14 +43,17 @@ export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
       </div>
       
       <div className="p-5">
+        <div className="text-sm font-medium text-[#3776AB] mb-1">
+          Python - {activity.activity_type} {activity.order}
+        </div>
         <h3 
-          className="font-bold text-[#055b8e] text-lg mb-2 group-hover:text-[#ed7219] transition-colors"
+          className="font-bold text-[#055b8e] text-xl mb-2 group-hover:text-[#ed7219] transition-colors"
           style={{ fontFamily: 'Nunito, sans-serif' }}
         >
-          Python - {activity.activity_type} {activity.order}: {activity.title}
+          {activity.title}
         </h3>
 
-        <p className="text-gray-600 mb-4 line-clamp-2 text-sm">
+        <p className="text-gray-600 mb-4 line-clamp-2">
           {activity.description}
         </p>
 

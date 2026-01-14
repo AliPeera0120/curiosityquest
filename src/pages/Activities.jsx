@@ -37,7 +37,7 @@ const difficultyLevels = [
 export default function Activities() {
   const [mainTab, setMainTab] = useState('hands-on');
   const [selectedTopic, setSelectedTopic] = useState('all');
-  const [selectedType, setSelectedType] = useState('all');
+  const [selectedActivityType, setSelectedActivityType] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExperiment, setSelectedExperiment] = useState(null);
@@ -62,7 +62,7 @@ export default function Activities() {
   });
 
   const filteredVirtualActivities = virtualActivities.filter((act) => {
-    const matchesType = selectedType === 'all' || act.activity_type === selectedType;
+    const matchesType = selectedActivityType === 'all' || act.activity_type === selectedActivityType;
     const matchesDifficulty = selectedDifficulty === 'all' || act.difficulty === selectedDifficulty;
     const matchesSearch = !searchQuery || 
       act.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -177,8 +177,18 @@ export default function Activities() {
             )}
           </TabsContent>
 
-          {/* Code Activities */}
+          {/* Code Activities (Python) */}
           <TabsContent value="code" className="mt-8">
+            {/* Python Header */}
+            <div className="text-center mb-6">
+              <Badge className="bg-[#3776AB] text-white text-lg px-4 py-2 mb-4">
+                🐍 Python Course
+              </Badge>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                A complete Python curriculum from beginner to intermediate. Work through lessons, build programs, and complete projects!
+              </p>
+            </div>
+
             {/* Type Filters */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Activity Type</h3>
@@ -186,10 +196,10 @@ export default function Activities() {
                 {activityTypes.map((type) => (
                   <Button
                     key={type.id}
-                    variant={selectedType === type.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedType(type.id)}
+                    variant={selectedActivityType === type.id ? 'default' : 'outline'}
+                    onClick={() => setSelectedActivityType(type.id)}
                     className={`rounded-full ${
-                      selectedType === type.id 
+                      selectedActivityType === type.id 
                         ? 'bg-[#055b8e] hover:bg-[#044a73]' 
                         : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
                     }`}

@@ -12,9 +12,9 @@ const difficultyColors = {
 };
 
 const typeColors = {
-  'Lesson': 'bg-sky-500',
-  'Program': 'bg-emerald-500',
-  'Project': 'bg-amber-500',
+  'Lesson': 'bg-[#055b8e]',
+  'Program': 'bg-[#ed7219]',
+  'Project': 'bg-gradient-to-r from-[#055b8e] to-[#ed7219]',
 };
 
 export default function VirtualActivityDetail({ activity, onClose }) {
@@ -49,21 +49,24 @@ export default function VirtualActivityDetail({ activity, onClose }) {
             
             <div className="flex items-center gap-3 mb-3">
               <Code className="w-8 h-8" />
-              <Badge className={`${typeColors[activity.activity_type] || 'bg-gray-500'} text-white`}>
+              <Badge className={`${typeColors[activity.activity_type]} text-white border-0`}>
                 {activity.activity_type}
               </Badge>
-              <Badge className="bg-[#ed7219] text-white">
+              <Badge className="bg-[#3776AB] text-white border-0">
                 Python
               </Badge>
               <Badge className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
                 {activity.difficulty}
               </Badge>
             </div>
+            <div className="text-white/80 text-sm mb-2">
+              Python - {activity.activity_type} {activity.order}
+            </div>
             <h2 
               className="text-2xl sm:text-3xl font-bold"
               style={{ fontFamily: 'Nunito, sans-serif' }}
             >
-              Python - {activity.activity_type} {activity.order}: {activity.title}
+              {activity.title}
             </h2>
           </div>
 
@@ -80,28 +83,30 @@ export default function VirtualActivityDetail({ activity, onClose }) {
               prose-headings:font-bold prose-headings:text-[#055b8e] 
               prose-a:text-[#ed7219] 
               prose-code:bg-gray-800 prose-code:text-green-400 prose-code:px-2 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-              prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto
-              prose-p:leading-relaxed prose-p:mb-4
-              prose-li:mb-1
-              prose-ul:mb-4 prose-ol:mb-4
-              prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-2xl
-              prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-xl
+              prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:p-6 prose-pre:overflow-x-auto prose-pre:my-6
+              prose-p:leading-relaxed prose-p:my-4
+              prose-ul:my-4 prose-li:my-1
+              prose-ol:my-4
+              prose-h2:mt-8 prose-h2:mb-4
+              prose-h3:mt-6 prose-h3:mb-3
             ">
               <ReactMarkdown
                 components={{
-                  code({ node, inline, className, children, ...props }) {
-                    if (inline) {
-                      return (
-                        <code className="bg-gray-800 text-green-400 px-2 py-0.5 rounded text-sm" {...props}>
-                          {children}
-                        </code>
-                      );
-                    }
+                  code({node, inline, className, children, ...props}) {
+                    return inline ? (
+                      <code className="bg-gray-200 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                        {children}
+                      </code>
+                    ) : (
+                      <code {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                  pre({node, children, ...props}) {
                     return (
-                      <pre className="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto my-4">
-                        <code className="text-sm font-mono" {...props}>
-                          {children}
-                        </code>
+                      <pre className="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto my-6 text-sm" {...props}>
+                        {children}
                       </pre>
                     );
                   }
