@@ -4,10 +4,10 @@ import { ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const topicColors = {
-  physics: { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-300' },
-  biology: { bg: 'bg-green-100', text: 'text-green-800', border: 'border-green-300' },
-  chemistry: { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-300' },
-  engineering: { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-300' },
+  physics: { bg: 'bg-blue-500', light: 'bg-blue-50', border: 'border-blue-200' },
+  biology: { bg: 'bg-green-500', light: 'bg-green-50', border: 'border-green-200' },
+  chemistry: { bg: 'bg-purple-500', light: 'bg-purple-50', border: 'border-purple-200' },
+  engineering: { bg: 'bg-orange-500', light: 'bg-orange-50', border: 'border-orange-200' },
 };
 
 const topicLabels = {
@@ -35,9 +35,9 @@ export default function ExperimentCard({ experiment, onClick, index = 0 }) {
       onClick={onClick}
     >
       {/* Header */}
-      <div className={`${colors.bg} p-4 flex items-center justify-between gap-2`}>
-        <Badge className={`${colors.bg} ${colors.text} border ${colors.border}`}>
-          {topicLabels[experiment.topic]}
+      <div className={`${colors.light} p-4 flex items-center justify-between gap-2`}>
+        <Badge className={`${colors.bg} text-white`}>
+          {topicLabels[experiment.topic] || experiment.topic}
         </Badge>
         <Badge variant="outline" className={difficultyColors[experiment.difficulty] || 'bg-gray-100 text-gray-800'}>
           {experiment.difficulty}
@@ -46,7 +46,7 @@ export default function ExperimentCard({ experiment, onClick, index = 0 }) {
       
       <div className="p-5">
         <h3 
-          className="font-bold text-[#055b8e] text-xl mb-2 group-hover:text-[#ed7219] transition-colors"
+          className="font-bold text-[#055b8e] text-xl mb-3 group-hover:text-[#ed7219] transition-colors"
           style={{ fontFamily: 'Nunito, sans-serif' }}
         >
           {experiment.title}
@@ -56,7 +56,10 @@ export default function ExperimentCard({ experiment, onClick, index = 0 }) {
           {experiment.what_you_learn}
         </p>
 
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-400">
+            {experiment.materials?.split('\n').filter(m => m.trim()).length || 0} materials needed
+          </span>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#ed7219] group-hover:translate-x-1 transition-all" />
         </div>
       </div>
