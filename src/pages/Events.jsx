@@ -5,21 +5,21 @@ import { motion } from 'framer-motion';
 export default function Events() {
   const events = [
     {
-      title: "Lava Lamp Fun",
-      date: "July 16th, 2026",
-      time: "2:00 PM - 2:45 PM",
-      ageGroup: "Ages 8-11",
-      location: "Phoenixville Area Library",
-      description: "Get ready for some fizzy fun! In this experiment, kids will make their very own lava lamps using water, oil, Alka-Seltzer, and a splash of food coloring. Kids will get to see science in action while learning about density and chemical reactions in a way that's super fun and easy to understand. This event gives kids the chance to have fun and learn new things in the summer.",
-      posterUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/c9c721d64_Science_Fun_Fiyer.png"
-    },
-    {
       title: "Elephant Toothpaste Adventure",
-      date: "July 23rd, 2026",
+      date: "July 23rd, 2025",
       time: "2:00 PM - 2:45 PM",
       ageGroup: "Ages 8-11",
       location: "Phoenixville Area Library",
       description: "Time to mix science and fun and make foam fly! In this exciting experiment, kids will create a foamy explosion that looks just like a giant tube of toothpaste—perfect for an elephant! Using simple ingredients like hydrogen peroxide, soap, and yeast, they'll learn about chemical reactions and how substances break down to create bubbles and foam. It's a hands-on, exciting way to see science in action while having a blast doing it!",
+      posterUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/c9c721d64_Science_Fun_Fiyer.png"
+    },
+    {
+      title: "Lava Lamp Fun",
+      date: "July 16th, 2025",
+      time: "2:00 PM - 2:45 PM",
+      ageGroup: "Ages 8-11",
+      location: "Phoenixville Area Library",
+      description: "Get ready for some fizzy fun! In this experiment, kids will make their very own lava lamps using water, oil, Alka-Seltzer, and a splash of food coloring. Kids will get to see science in action while learning about density and chemical reactions in a way that's super fun and easy to understand. This event gives kids the chance to have fun and learn new things in the summer.",
       posterUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/696594fc2acba2d4bc584513/c9c721d64_Science_Fun_Fiyer.png"
     }
   ];
@@ -43,7 +43,7 @@ export default function Events() {
             className="text-4xl sm:text-5xl font-bold mb-4"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
-            Upcoming Events
+            Previous Events
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -51,7 +51,7 @@ export default function Events() {
             transition={{ delay: 0.2 }}
             className="text-xl text-white/80 max-w-2xl mx-auto"
           >
-            Join us for hands-on STEM experiments and community learning experiences
+            Check out our past hands-on STEM experiments and community learning experiences
           </motion.p>
         </div>
       </div>
@@ -109,15 +109,6 @@ export default function Events() {
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-700 leading-relaxed text-lg">
                     {event.description}
-                  </p>
-                </div>
-
-                <div className="mt-8 p-6 bg-gradient-to-r from-[#ed7219]/10 to-[#055b8e]/10 rounded-2xl border-2 border-[#ed7219]/20">
-                  <p className="text-center text-lg font-semibold text-[#055b8e] mb-2">
-                    Registration Required
-                  </p>
-                  <p className="text-center text-gray-600">
-                    Contact us to reserve your spot or scan the QR code on the poster
                   </p>
                 </div>
               </div>

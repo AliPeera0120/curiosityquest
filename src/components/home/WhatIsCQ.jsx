@@ -18,7 +18,7 @@ export default function WhatIsCQ() {
               className="text-3xl sm:text-4xl font-bold text-[#055b8e] mb-6"
               style={{ fontFamily: 'Nunito, sans-serif' }}
             >
-              What Is CuriosityQuest?
+              Our Mission
             </h2>
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>
