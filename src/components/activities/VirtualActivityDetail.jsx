@@ -5,12 +5,6 @@ import { X, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
-const difficultyColors = {
-  'Beginner': 'bg-green-100 text-green-800',
-  'Intermediate': 'bg-blue-100 text-blue-800',
-  'Advanced': 'bg-purple-100 text-purple-800',
-};
-
 const typeColors = {
   'Lesson': 'bg-[#055b8e]',
   'Program': 'bg-[#ed7219]',
@@ -55,9 +49,6 @@ export default function VirtualActivityDetail({ activity, onClose }) {
               <Badge className="bg-[#3776AB] text-white border-0">
                 Python
               </Badge>
-              <Badge className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
-                {activity.difficulty}
-              </Badge>
             </div>
             <div className="text-white/80 text-sm mb-2">
               Python - {activity.activity_type} {activity.order}
@@ -87,8 +78,9 @@ export default function VirtualActivityDetail({ activity, onClose }) {
               prose-p:leading-relaxed prose-p:my-4
               prose-ul:my-4 prose-li:my-1
               prose-ol:my-4
-              prose-h2:mt-8 prose-h2:mb-4
-              prose-h3:mt-6 prose-h3:mb-3
+              prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-2xl prose-h2:border-b prose-h2:border-[#055b8e]/20 prose-h2:pb-2
+              prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-xl
+              prose-h4:mt-4 prose-h4:mb-2 prose-h4:text-lg prose-h4:text-[#ed7219]
             ">
               <ReactMarkdown
                 components={{
@@ -108,6 +100,48 @@ export default function VirtualActivityDetail({ activity, onClose }) {
                       <pre className="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto my-6 text-sm" {...props}>
                         {children}
                       </pre>
+                    );
+                  },
+                  h2({children, ...props}) {
+                    return (
+                      <h2 className="text-2xl font-bold text-[#055b8e] mt-10 mb-4 pb-2 border-b-2 border-[#055b8e]/20" {...props}>
+                        {children}
+                      </h2>
+                    );
+                  },
+                  h3({children, ...props}) {
+                    return (
+                      <h3 className="text-xl font-bold text-[#055b8e] mt-8 mb-3" {...props}>
+                        {children}
+                      </h3>
+                    );
+                  },
+                  h4({children, ...props}) {
+                    return (
+                      <h4 className="text-lg font-semibold text-[#ed7219] mt-6 mb-2" {...props}>
+                        {children}
+                      </h4>
+                    );
+                  },
+                  ul({children, ...props}) {
+                    return (
+                      <ul className="list-disc list-inside space-y-2 my-4 ml-4" {...props}>
+                        {children}
+                      </ul>
+                    );
+                  },
+                  ol({children, ...props}) {
+                    return (
+                      <ol className="list-decimal list-inside space-y-2 my-4 ml-4" {...props}>
+                        {children}
+                      </ol>
+                    );
+                  },
+                  p({children, ...props}) {
+                    return (
+                      <p className="my-4 leading-relaxed text-gray-700" {...props}>
+                        {children}
+                      </p>
                     );
                   }
                 }}

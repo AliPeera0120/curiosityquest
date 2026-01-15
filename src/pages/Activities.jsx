@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search, Beaker, Code, Atom, Leaf, FlaskConical, Wrench, Loader2 } from 'lucide-react';
+import { Search, FlaskRound, Code, Atom, Leaf, FlaskConical, Wrench, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ExperimentCard from '../components/activities/ExperimentCard';
 import ExperimentDetail from '../components/activities/ExperimentDetail';
@@ -13,7 +13,7 @@ import VirtualActivityCard from '../components/activities/VirtualActivityCard';
 import VirtualActivityDetail from '../components/activities/VirtualActivityDetail';
 
 const topics = [
-  { id: 'all', label: 'All Topics', icon: Beaker },
+  { id: 'all', label: 'All Topics', icon: FlaskRound },
   { id: 'physics', label: 'Physics', icon: Atom },
   { id: 'biology', label: 'Biology', icon: Leaf },
   { id: 'chemistry', label: 'Chemistry', icon: FlaskConical },
@@ -27,21 +27,25 @@ const activityTypes = [
   { id: 'Project', label: 'Projects' },
 ];
 
-const difficultyLevels = [
-  { id: 'all', label: 'All Levels' },
-  { id: 'Beginner', label: 'Beginner' },
-  { id: 'Intermediate', label: 'Intermediate' },
-  { id: 'Advanced', label: 'Advanced' },
+const codeCourses = [
+  { id: 'python', label: 'Python', icon: '🐍', color: 'bg-[#3776AB]', available: true },
+  { id: 'java', label: 'Java', icon: '☕', color: 'bg-[#ED8B00]', available: false },
+  { id: 'html-css', label: 'HTML/CSS', icon: '🌐', color: 'bg-[#E34F26]', available: false },
 ];
 
 export default function Activities() {
   const [mainTab, setMainTab] = useState('hands-on');
   const [selectedTopic, setSelectedTopic] = useState('all');
   const [selectedActivityType, setSelectedActivityType] = useState('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [selectedCourse, setSelectedCourse] = useState('python');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExperiment, setSelectedExperiment] = useState(null);
   const [selectedActivity, setSelectedActivity] = useState(null);
+
+  // Scroll to top when tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [mainTab]);
 
   const { data: experiments = [], isLoading: loadingExperiments } = useQuery({
     queryKey: ['experiments'],
@@ -53,7 +57,17 @@ export default function Activities() {
     queryFn: () => base44.entities.VirtualActivity.list('order'),
   });
 
-  const filteredExperiments = experiments.filter((exp) => {
+  // Deduplicate experiments by title
+  const uniqueExperiments = experiments.filter((exp, index, self) =>
+    index === self.findIndex((e) => e.title === exp.title)
+  );
+
+  // Deduplicate virtual activities by title
+  const uniqueVirtualActivities = virtualActivities.filter((act, index, self) =>
+    index === self.findIndex((a) => a.title === act.title)
+  );
+
+  const filteredExperiments = uniqueExperiments.filter((exp) => {
     const matchesTopic = selectedTopic === 'all' || exp.topic === selectedTopic;
     const matchesSearch = !searchQuery || 
       exp.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -61,13 +75,12 @@ export default function Activities() {
     return matchesTopic && matchesSearch;
   });
 
-  const filteredVirtualActivities = virtualActivities.filter((act) => {
+  const filteredVirtualActivities = uniqueVirtualActivities.filter((act) => {
     const matchesType = selectedActivityType === 'all' || act.activity_type === selectedActivityType;
-    const matchesDifficulty = selectedDifficulty === 'all' || act.difficulty === selectedDifficulty;
     const matchesSearch = !searchQuery || 
       act.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       act.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesType && matchesDifficulty && matchesSearch;
+    return matchesType && matchesSearch;
   });
 
   return (
@@ -102,7 +115,7 @@ export default function Activities() {
               value="hands-on" 
               className="rounded-lg data-[state=active]:bg-[#055b8e] data-[state=active]:text-white text-lg font-medium"
             >
-              <Beaker className="w-5 h-5 mr-2" />
+              <FlaskRound className="w-5 h-5 mr-2" />
               Hands-On
             </TabsTrigger>
             <TabsTrigger 
@@ -155,7 +168,7 @@ export default function Activities() {
               </div>
             ) : filteredExperiments.length === 0 ? (
               <div className="text-center py-20">
-                <Beaker className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                <FlaskRound className="w-16 h-16 mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   No experiments found
                 </h3>
@@ -177,84 +190,105 @@ export default function Activities() {
             )}
           </TabsContent>
 
-          {/* Code Activities (Python) */}
+          {/* Code Activities */}
           <TabsContent value="code" className="mt-8">
-            {/* Python Header */}
-            <div className="text-center mb-6">
-              <Badge className="bg-[#3776AB] text-white text-lg px-4 py-2 mb-4">
-                🐍 Python Course
-              </Badge>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                A complete Python curriculum from beginner to intermediate. Work through lessons, build programs, and complete projects!
-              </p>
+            {/* Course Selection */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {codeCourses.map((course) => (
+                <button
+                  key={course.id}
+                  onClick={() => course.available && setSelectedCourse(course.id)}
+                  disabled={!course.available}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                    selectedCourse === course.id
+                      ? `${course.color} text-white shadow-lg`
+                      : course.available
+                        ? 'bg-white border-2 border-gray-200 hover:border-gray-400'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <span className="text-xl">{course.icon}</span>
+                  <span>{course.label}</span>
+                  {!course.available && (
+                    <Badge variant="outline" className="ml-2 text-xs">Coming Soon</Badge>
+                  )}
+                </button>
+              ))}
             </div>
 
-            {/* Type Filters */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Activity Type</h3>
-              <div className="flex flex-wrap justify-center gap-2">
-                {activityTypes.map((type) => (
-                  <Button
-                    key={type.id}
-                    variant={selectedActivityType === type.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedActivityType(type.id)}
-                    className={`rounded-full ${
-                      selectedActivityType === type.id 
-                        ? 'bg-[#055b8e] hover:bg-[#044a73]' 
-                        : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
-                    }`}
-                  >
-                    {type.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
+            {selectedCourse === 'python' && (
+              <>
+                {/* Python Header */}
+                <div className="text-center mb-6">
+                  <Badge className="bg-[#3776AB] text-white text-lg px-4 py-2 mb-4">
+                    🐍 Python Course
+                  </Badge>
+                  <p className="text-gray-600 max-w-2xl mx-auto">
+                    A complete Python curriculum from beginner to intermediate. Work through lessons, build programs, and complete projects!
+                  </p>
+                </div>
 
-            {/* Difficulty Filters */}
-            <div className="mb-8">
-              <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Difficulty Level</h3>
-              <div className="flex flex-wrap justify-center gap-2">
-                {difficultyLevels.map((level) => (
-                  <Button
-                    key={level.id}
-                    variant={selectedDifficulty === level.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedDifficulty(level.id)}
-                    className={`rounded-full ${
-                      selectedDifficulty === level.id 
-                        ? 'bg-[#ed7219] hover:bg-[#d86515]' 
-                        : 'hover:bg-[#ed7219]/10 hover:text-[#ed7219] hover:border-[#ed7219]'
-                    }`}
-                  >
-                    {level.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
+                {/* Type Filters */}
+                <div className="mb-8">
+                  <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Activity Type</h3>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {activityTypes.map((type) => (
+                      <Button
+                        key={type.id}
+                        variant={selectedActivityType === type.id ? 'default' : 'outline'}
+                        onClick={() => setSelectedActivityType(type.id)}
+                        className={`rounded-full ${
+                          selectedActivityType === type.id 
+                            ? 'bg-[#055b8e] hover:bg-[#044a73]' 
+                            : 'hover:bg-[#055b8e]/10 hover:text-[#055b8e] hover:border-[#055b8e]'
+                        }`}
+                      >
+                        {type.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
 
-            {loadingVirtual ? (
-              <div className="flex items-center justify-center py-20">
-                <Loader2 className="w-8 h-8 animate-spin text-[#055b8e]" />
-              </div>
-            ) : filteredVirtualActivities.length === 0 ? (
+                {loadingVirtual ? (
+                  <div className="flex items-center justify-center py-20">
+                    <Loader2 className="w-8 h-8 animate-spin text-[#055b8e]" />
+                  </div>
+                ) : filteredVirtualActivities.length === 0 ? (
+                  <div className="text-center py-20">
+                    <Code className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                      No activities found
+                    </h3>
+                    <p className="text-gray-400">
+                      Try adjusting your filters or search terms
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredVirtualActivities.map((activity, index) => (
+                      <VirtualActivityCard
+                        key={activity.id}
+                        activity={activity}
+                        index={index}
+                        onClick={() => setSelectedActivity(activity)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+
+            {selectedCourse !== 'python' && (
               <div className="text-center py-20">
-                <Code className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                  No activities found
+                <div className="text-6xl mb-4">
+                  {codeCourses.find(c => c.id === selectedCourse)?.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-[#055b8e] mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                  {codeCourses.find(c => c.id === selectedCourse)?.label} Course
                 </h3>
-                <p className="text-gray-400">
-                  Try adjusting your filters or search terms
+                <p className="text-gray-500 text-lg">
+                  Coming soon! Check back later for lessons.
                 </p>
-              </div>
-            ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredVirtualActivities.map((activity, index) => (
-                  <VirtualActivityCard
-                    key={activity.id}
-                    activity={activity}
-                    index={index}
-                    onClick={() => setSelectedActivity(activity)}
-                  />
-                ))}
               </div>
             )}
           </TabsContent>

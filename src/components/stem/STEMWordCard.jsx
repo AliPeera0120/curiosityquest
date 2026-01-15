@@ -1,10 +1,11 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { BookOpen, Sparkles } from 'lucide-react';
+import { BookOpen, Sparkles, Tag } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 
 export default function STEMWordCard({ word, featured = false }) {
-  const weekDate = word.week_date ? new Date(word.week_date) : new Date();
+  const wordDate = word.word_date ? new Date(word.word_date) : (word.week_date ? new Date(word.week_date) : new Date());
 
   return (
     <motion.div
@@ -19,7 +20,7 @@ export default function STEMWordCard({ word, featured = false }) {
           <BookOpen className="w-5 h-5 text-[#055b8e]" />
         )}
         <span className={`text-sm font-medium ${featured ? 'text-white/80' : 'text-gray-500'}`}>
-          {featured ? "This Week's Word" : format(weekDate, 'MMM d')}
+          {featured ? "STEM Word of the Day" : format(wordDate, 'MMM d')}
         </span>
       </div>
 
@@ -34,9 +35,27 @@ export default function STEMWordCard({ word, featured = false }) {
         {word.definition}
       </p>
 
-      <div className={`text-sm ${featured ? 'text-white/70' : 'text-gray-500'}`}>
+      <div className={`text-sm mb-3 ${featured ? 'text-white/70' : 'text-gray-500'}`}>
         <strong>Example:</strong> {word.example}
       </div>
+
+      {word.fields && (
+        <div className="flex items-center gap-2 flex-wrap">
+          <Tag className={`w-4 h-4 ${featured ? 'text-white/60' : 'text-gray-400'}`} />
+          {word.fields.split(',').map((field, i) => (
+            <Badge 
+              key={i} 
+              variant="outline" 
+              className={featured 
+                ? 'bg-white/20 text-white border-white/30 text-xs' 
+                : 'bg-gray-100 text-gray-600 border-gray-200 text-xs'
+              }
+            >
+              {field.trim()}
+            </Badge>
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 }

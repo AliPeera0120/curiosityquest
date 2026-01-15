@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Briefcase, Loader2, Sparkles, ChevronDown, ChevronUp, Building2, User, X } from 'lucide-react';
+import { Search, Briefcase, Loader2, Sparkles, ChevronDown, Building2, User, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const categories = [
+  { id: 'all', label: 'All Careers' },
   { id: 'Engineering', label: 'Engineering' },
   { id: 'Computer Science & Coding', label: 'Computer Science & Coding' },
   { id: 'Robotics & AI', label: 'Robotics & AI' },
@@ -19,6 +20,7 @@ const categories = [
 ];
 
 const categoryImages = {
+  'all': 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&q=80',
   'Engineering': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
   'Computer Science & Coding': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80',
   'Robotics & AI': 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80',
@@ -29,6 +31,7 @@ const categoryImages = {
 };
 
 const categoryTints = {
+  'all': 'from-[#055b8e]/70',
   'Engineering': 'from-[#055b8e]/70',
   'Computer Science & Coding': 'from-[#ed7219]/70',
   'Robotics & AI': 'from-[#055b8e]/70',
@@ -173,9 +176,14 @@ function CareerCard({ career, onClick, index }) {
 }
 
 export default function CareersInSTEM() {
-  const [selectedCategory, setSelectedCategory] = useState('Engineering');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCareer, setSelectedCareer] = useState(null);
+
+  // Scroll to top when tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [selectedCategory]);
 
   const { data: careers = [], isLoading } = useQuery({
     queryKey: ['careers'],
@@ -183,12 +191,14 @@ export default function CareersInSTEM() {
   });
 
   const filteredCareers = careers.filter((career) => {
-    const matchesCategory = career.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'all' || career.category === selectedCategory;
     const matchesSearch = !searchQuery || 
       career.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       career.description?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  const currentCategory = categories.find(c => c.id === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -3,12 +3,6 @@ import { Badge } from '@/components/ui/badge';
 import { ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const difficultyColors = {
-  'Beginner': 'bg-green-100 text-green-800 border-green-300',
-  'Intermediate': 'bg-blue-100 text-blue-800 border-blue-300',
-  'Advanced': 'bg-purple-100 text-purple-800 border-purple-300',
-};
-
 const typeColors = {
   'Lesson': 'bg-[#055b8e]',
   'Program': 'bg-[#ed7219]',
@@ -37,9 +31,6 @@ export default function VirtualActivityCard({ activity, onClick, index = 0 }) {
             {typeIcons[activity.activity_type]} {activity.activity_type}
           </Badge>
         </div>
-        <Badge variant="outline" className={difficultyColors[activity.difficulty] || 'bg-gray-100 text-gray-800'}>
-          {activity.difficulty}
-        </Badge>
       </div>
       
       <div className="p-5">
