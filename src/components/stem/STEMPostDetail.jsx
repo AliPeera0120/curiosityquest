@@ -72,8 +72,41 @@ export default function STEMPostDetail({ post, onClose }) {
             </div>
 
             {/* Main Content */}
-            <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#055b8e] prose-a:text-[#ed7219]">
-              <ReactMarkdown>
+            <div className="prose prose-lg max-w-none prose-a:text-[#ed7219]">
+              <ReactMarkdown
+                components={{
+                  h2: ({children}) => (
+                    <h2 className="text-2xl font-bold text-[#055b8e] mt-8 mb-4 pb-2 border-b-2 border-[#055b8e]/20" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({children}) => (
+                    <h3 className="text-xl font-bold text-[#055b8e] mt-6 mb-3" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                      {children}
+                    </h3>
+                  ),
+                  h4: ({children}) => (
+                    <h4 className="text-lg font-semibold text-[#ed7219] mt-4 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                      {children}
+                    </h4>
+                  ),
+                  p: ({children}) => (
+                    <p className="my-4 leading-relaxed text-gray-700">{children}</p>
+                  ),
+                  ul: ({children}) => (
+                    <ul className="list-disc list-inside space-y-2 my-4 ml-4 text-gray-700">{children}</ul>
+                  ),
+                  ol: ({children}) => (
+                    <ol className="list-decimal list-inside space-y-2 my-4 ml-4 text-gray-700">{children}</ol>
+                  ),
+                  strong: ({children}) => (
+                    <strong className="font-bold text-[#055b8e]">{children}</strong>
+                  ),
+                  hr: () => (
+                    <hr className="my-8 border-t-2 border-gray-200" />
+                  ),
+                }}
+              >
                 {post.content}
               </ReactMarkdown>
             </div>
