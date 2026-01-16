@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search, FlaskRound, Code, Atom, Leaf, FlaskConical, Wrench, Loader2 } from 'lucide-react';
+import { Search, FlaskConical, Code, Atom, Leaf, Wrench, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ExperimentCard from '../components/activities/ExperimentCard';
 import ExperimentDetail from '../components/activities/ExperimentDetail';
@@ -13,7 +13,7 @@ import VirtualActivityCard from '../components/activities/VirtualActivityCard';
 import VirtualActivityDetail from '../components/activities/VirtualActivityDetail';
 
 const topics = [
-  { id: 'all', label: 'All Topics', icon: FlaskRound },
+  { id: 'all', label: 'All Topics', icon: FlaskConical },
   { id: 'physics', label: 'Physics', icon: Atom },
   { id: 'biology', label: 'Biology', icon: Leaf },
   { id: 'chemistry', label: 'Chemistry', icon: FlaskConical },
@@ -115,7 +115,7 @@ export default function Activities() {
               value="hands-on" 
               className="rounded-lg data-[state=active]:bg-[#055b8e] data-[state=active]:text-white text-lg font-medium"
             >
-              <FlaskRound className="w-5 h-5 mr-2" />
+              <FlaskConical className="w-5 h-5 mr-2" />
               Hands-On
             </TabsTrigger>
             <TabsTrigger 
@@ -168,7 +168,7 @@ export default function Activities() {
               </div>
             ) : filteredExperiments.length === 0 ? (
               <div className="text-center py-20">
-                <FlaskRound className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                <FlaskConical className="w-16 h-16 mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
                   No experiments found
                 </h3>
@@ -218,16 +218,6 @@ export default function Activities() {
 
             {selectedCourse === 'python' && (
               <>
-                {/* Python Header */}
-                <div className="text-center mb-6">
-                  <Badge className="bg-[#3776AB] text-white text-lg px-4 py-2 mb-4">
-                    🐍 Python Course
-                  </Badge>
-                  <p className="text-gray-600 max-w-2xl mx-auto">
-                    A complete Python curriculum from beginner to intermediate. Work through lessons, build programs, and complete projects!
-                  </p>
-                </div>
-
                 {/* Type Filters */}
                 <div className="mb-8">
                   <h3 className="text-sm font-semibold text-gray-600 mb-3 text-center">Activity Type</h3>

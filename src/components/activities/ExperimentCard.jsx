@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-import { ChevronRight, FlaskRound } from 'lucide-react';
+import { ChevronRight, FlaskConical } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const topicColors = {
@@ -17,6 +17,12 @@ const topicLabels = {
   engineering: 'Engineering',
 };
 
+const difficultyColors = {
+  'Beginner': 'bg-green-100 text-green-800 border-green-300',
+  'Medium': 'bg-yellow-100 text-yellow-800 border-yellow-300',
+  'Advanced': 'bg-red-100 text-red-800 border-red-300',
+};
+
 export default function ExperimentCard({ experiment, onClick, index = 0 }) {
   const colors = topicColors[experiment.topic] || topicColors.physics;
 
@@ -31,11 +37,14 @@ export default function ExperimentCard({ experiment, onClick, index = 0 }) {
       {/* Header */}
       <div className={`${colors.light} p-4 flex items-center justify-between gap-2`}>
         <div className="flex items-center gap-2">
-          <FlaskRound className={`w-4 h-4 ${colors.bg.replace('bg-', 'text-')}`} />
+          <FlaskConical className={`w-4 h-4 ${colors.bg.replace('bg-', 'text-')}`} />
           <Badge className={`${colors.bg} text-white`}>
             {topicLabels[experiment.topic] || experiment.topic}
           </Badge>
         </div>
+        <Badge variant="outline" className={difficultyColors[experiment.difficulty] || 'bg-gray-100 text-gray-800'}>
+          {experiment.difficulty}
+        </Badge>
       </div>
       
       <div className="p-5">
