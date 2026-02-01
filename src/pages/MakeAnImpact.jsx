@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Heart, Users, Book, Mail, Send, Check } from 'lucide-react';
+import { Heart, Users, Book, Mail, Send, Check, UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function MakeAnImpact() {
@@ -138,6 +138,31 @@ export default function MakeAnImpact() {
               </Button>
               <p className="text-sm text-gray-500 mt-4">
                 All contributions support educational programming
+              </p>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Join Our Team Section */}
+        <section className="mb-16">
+          <Card className="bg-gradient-to-br from-[#055b8e]/5 to-[#ed7219]/5 border-2">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold text-[#055b8e] mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                Join Our Team
+              </h3>
+              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                Are you an ambitious high schooler who wants to make an impact in your community? Join our team now and help inspire the next generation of STEM learners!
+              </p>
+              <Button
+                onClick={() => window.open('https://forms.gle/vsb4JBjad3DLxfec6', '_blank')}
+                size="lg"
+                className="bg-[#055b8e] hover:bg-[#044a73] text-white px-10 py-6 rounded-xl font-semibold text-lg"
+              >
+                <UserPlus className="mr-2 w-5 h-5" />
+                Join Now
+              </Button>
+              <p className="text-sm text-gray-500 mt-4">
+                Open to high school students passionate about STEM education
               </p>
             </CardContent>
           </Card>
