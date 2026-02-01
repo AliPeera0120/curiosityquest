@@ -129,7 +129,7 @@ export default function MakeAnImpact() {
                 Your donation directly funds hands-on experiments, virtual learning resources, community events, and library partnerships that make STEM education accessible to all.
               </p>
               <Button
-                onClick={() => window.location.href = 'mailto:curiosity.quest25@gmail.com?subject=Donation Inquiry'}
+                onClick={() => window.open('https://hcb.hackclub.com/donations/start/curiosityquest', '_blank')}
                 size="lg"
                 className="bg-[#ed7219] hover:bg-[#d86515] text-white px-10 py-6 rounded-xl font-semibold text-lg"
               >
