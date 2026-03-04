@@ -79,52 +79,24 @@ export default function ThisWeekInSTEM() {
         ) : (
           <>
             {/* Featured Section */}
-            <div className="grid lg:grid-cols-3 gap-6 mb-16">
-              {/* Featured Post */}
-              <div className="lg:col-span-2">
-                {featuredPost ? (
-                  <STEMPostCard 
-                    post={featuredPost} 
-                    featured 
-                    onClick={() => setSelectedPost(featuredPost)} 
-                  />
-                ) : (
-                  <div className="bg-white rounded-3xl p-8 text-center">
-                    <BookOpen className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                      Coming Soon
-                    </h3>
-                    <p className="text-gray-400">
-                      Check back for this week's topic!
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Featured Word & Previous Words */}
-              <div className="space-y-4">
-                {featuredWord ? (
-                  <STEMWordCard word={featuredWord} featured />
-                ) : (
-                  <div className="bg-white rounded-2xl p-6 text-center border border-gray-200">
-                    <BookOpen className="w-12 h-12 mx-auto text-gray-300 mb-3" />
-                    <p className="text-gray-400">Word of the day coming soon!</p>
-                  </div>
-                )}
-
-                {/* Previous Words */}
-                {words.length > 1 && (
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-gray-500 text-sm flex items-center gap-2">
-                      <Archive className="w-4 h-4" />
-                      Previous Words
-                    </h4>
-                    {words.slice(1, 5).map((word) => (
-                      <STEMWordCard key={word.id} word={word} />
-                    ))}
-                  </div>
-                )}
-              </div>
+            <div className="mb-16">
+              {featuredPost ? (
+                <STEMPostCard 
+                  post={featuredPost} 
+                  featured 
+                  onClick={() => setSelectedPost(featuredPost)} 
+                />
+              ) : (
+                <div className="bg-white rounded-3xl p-8 text-center">
+                  <BookOpen className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-500 mb-2" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                    Coming Soon
+                  </h3>
+                  <p className="text-gray-400">
+                    Check back for this week's topic!
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Archive Section */}
