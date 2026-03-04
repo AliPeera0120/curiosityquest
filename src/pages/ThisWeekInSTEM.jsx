@@ -26,14 +26,8 @@ export default function ThisWeekInSTEM() {
     queryFn: () => base44.entities.STEMPost.list('-week_date'),
   });
 
-  const { data: words = [], isLoading: loadingWords } = useQuery({
-    queryKey: ['stemWords'],
-    queryFn: () => base44.entities.STEMWord.list('-word_date'),
-  });
-
-  // Get most recent post and word
+  // Get most recent post
   const featuredPost = posts[0];
-  const featuredWord = words[0];
   const archivePosts = posts.slice(1);
 
   const filteredPosts = archivePosts.filter((post) => {
