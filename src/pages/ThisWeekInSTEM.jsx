@@ -58,7 +58,7 @@ export default function ThisWeekInSTEM() {
             className="text-4xl sm:text-5xl font-bold mb-4"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
-            This Week in STEM
+            5 Minutes of STEM
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function ThisWeekInSTEM() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {loadingPosts || loadingWords ? (
+        {loadingPosts ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-[#055b8e]" />
           </div>
