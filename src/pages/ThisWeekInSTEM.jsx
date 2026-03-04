@@ -7,7 +7,6 @@ import { Search, BookOpen, Loader2, Archive, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import STEMPostCard from '../components/stem/STEMPostCard';
 import STEMPostDetail from '../components/stem/STEMPostDetail';
-import STEMWordCard from '../components/stem/STEMWordCard';
 
 const topicFilters = [
   { id: 'all', label: 'All Topics' },
