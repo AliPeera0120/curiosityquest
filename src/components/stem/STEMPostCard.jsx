@@ -13,7 +13,7 @@ const topicColors = {
 };
 
 export default function STEMPostCard({ post, onClick, featured = false, index = 0 }) {
-  const weekDate = post.week_date ? new Date(post.week_date) : new Date();
+  const weekDate = post.week_date ? new Date(post.week_date + 'T12:00:00') : new Date();
 
   if (featured) {
     return (
