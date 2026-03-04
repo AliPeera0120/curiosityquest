@@ -11,7 +11,7 @@ export default function Layout({ children, currentPageName }) {
     { name: 'Home', page: 'Home' },
     { name: 'Activities', page: 'Activities' },
     { name: 'Events', page: 'Events' },
-    { name: 'This Week in STEM', page: 'ThisWeekInSTEM' },
+    { name: '5 Minutes of STEM', page: 'ThisWeekInSTEM' },
     { name: 'Careers', page: 'CareersInSTEM' },
     { name: 'Make an Impact', page: 'MakeAnImpact' },
   ];
