@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#055b8e] via-[#055b8e] to-[#044a73] min-h-[600px] flex items-center">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#055b8e] via-[#055b8e] to-[#044a73] min-h-[420px] flex items-center">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full border-4 border-white" />
@@ -48,7 +48,7 @@ export default function HeroSection() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
             Where Curiosity
@@ -76,7 +76,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-white/90 leading-relaxed mb-8 max-w-2xl"
+            className="text-lg text-white/90 leading-relaxed mb-6 max-w-2xl"
           >
             Join us on an exciting journey of exploration! Through hands-on experiments, 
             virtual activities, and community events, we help kids discover the wonder of 
