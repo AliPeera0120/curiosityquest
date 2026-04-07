@@ -82,6 +82,31 @@ export default function MakeAnImpact() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Donation Section */}
+        <section className="mb-16">
+          <Card className="bg-gradient-to-br from-[#ed7219]/5 to-[#055b8e]/5 border-2">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold text-[#055b8e] mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                Support Our Mission
+              </h3>
+              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                Your donation directly funds hands-on experiments, virtual learning resources, community events, and library partnerships that make STEM education accessible to all.
+              </p>
+              <Button
+                onClick={() => window.open('https://hcb.hackclub.com/donations/start/curiosityquest', '_blank')}
+                size="lg"
+                className="bg-[#ed7219] hover:bg-[#d86515] text-white px-10 py-6 rounded-xl font-semibold text-lg"
+              >
+                <Heart className="mr-2 w-5 h-5" />
+                Make a Donation
+              </Button>
+              <p className="text-sm text-gray-500 mt-4">
+                All contributions support educational programming
+              </p>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* Who Benefits */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#055b8e] text-center mb-12" style={{ fontFamily: 'Nunito, sans-serif' }}>
@@ -118,57 +143,7 @@ export default function MakeAnImpact() {
           </div>
         </section>
 
-        {/* Donation Section */}
-        <section className="mb-16">
-          <Card className="bg-gradient-to-br from-[#ed7219]/5 to-[#055b8e]/5 border-2">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-[#055b8e] mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                Support Our Mission
-              </h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                Your donation directly funds hands-on experiments, virtual learning resources, community events, and library partnerships that make STEM education accessible to all.
-              </p>
-              <Button
-                onClick={() => window.open('https://hcb.hackclub.com/donations/start/curiosityquest', '_blank')}
-                size="lg"
-                className="bg-[#ed7219] hover:bg-[#d86515] text-white px-10 py-6 rounded-xl font-semibold text-lg"
-              >
-                <Heart className="mr-2 w-5 h-5" />
-                Make a Donation
-              </Button>
-              <p className="text-sm text-gray-500 mt-4">
-                All contributions support educational programming
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-
         {/* Join Our Team Section */}
-        <section className="mb-16">
-          <Card className="bg-gradient-to-br from-[#055b8e]/5 to-[#ed7219]/5 border-2">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-[#055b8e] mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
-                Join Our Team
-              </h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                Are you an ambitious high schooler who wants to make an impact in your community? Join our team now and help inspire the next generation of STEM learners!
-              </p>
-              <Button
-                onClick={() => window.open('https://forms.gle/vsb4JBjad3DLxfec6', '_blank')}
-                size="lg"
-                className="bg-[#055b8e] hover:bg-[#044a73] text-white px-10 py-6 rounded-xl font-semibold text-lg"
-              >
-                <UserPlus className="mr-2 w-5 h-5" />
-                Join Now
-              </Button>
-              <p className="text-sm text-gray-500 mt-4">
-                Open to high school students passionate about STEM education
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Contact Section */}
         <section>
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Contact Info */}
