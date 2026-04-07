@@ -167,6 +167,18 @@ export default function ThisWeekInSTEM() {
           onClose={() => setSelectedPost(null)}
         />
       )}
+
+      {/* Floating Subscribe Button */}
+      <a
+        href="https://curiosityquest25.substack.com/?utm_campaign=profile&utm_medium=profile-page"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#ed7219] hover:bg-[#d86515] text-white px-5 py-3 rounded-full shadow-lg font-semibold transition-all hover:scale-105"
+        style={{ fontFamily: 'Nunito, sans-serif' }}
+      >
+        <Sparkles className="w-4 h-4" />
+        Subscribe to Newsletter
+      </a>
     </div>
   );
 }
