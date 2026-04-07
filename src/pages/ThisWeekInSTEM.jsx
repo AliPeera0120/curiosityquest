@@ -41,21 +41,12 @@ export default function ThisWeekInSTEM() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#055b8e] to-[#044a73] text-white py-16 px-4">
+      <div className="bg-gradient-to-br from-[#055b8e] to-[#044a73] text-white py-8 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/90 text-sm font-medium mb-6"
-          >
-            <Sparkles className="w-4 h-4 text-[#ed7219]" />
-            New content every week
-          </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl font-bold mb-4"
+            className="text-3xl sm:text-4xl font-bold mb-2"
             style={{ fontFamily: 'Nunito, sans-serif' }}
           >
             5 Minutes of STEM
@@ -63,10 +54,10 @@ export default function ThisWeekInSTEM() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-white/80 max-w-2xl mx-auto"
+            transition={{ delay: 0.1 }}
+            className="text-white/80 max-w-2xl mx-auto"
           >
-            Explore fascinating questions about science, technology, engineering, and math—made simple and fun for curious minds!
+            Explore fascinating questions about science, technology, engineering, and math—made simple and fun!
           </motion.p>
         </div>
       </div>
