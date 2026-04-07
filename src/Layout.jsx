@@ -164,6 +164,20 @@ export default function Layout({ children, currentPageName }) {
                 Making STEM education accessible, engaging, and fun for curious minds everywhere.
               </p>
             </div>
+
+            {/* Contact Us */}
+            <div>
+              <h4 className="font-bold text-lg mb-4" style={{ fontFamily: 'Nunito, sans-serif' }}>
+                Contact Us
+              </h4>
+              <p className="text-white/80 mb-2">Have questions or want to get involved?</p>
+              <a
+                href="mailto:curiosity.quest25@gmail.com"
+                className="text-[#ed7219] hover:text-orange-300 transition-colors font-medium"
+              >
+                curiosity.quest25@gmail.com
+              </a>
+            </div>
           </div>
 
           <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
