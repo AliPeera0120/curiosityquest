@@ -28,7 +28,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div 
-        className="absolute bottom-32 right-[25%] hidden lg:block"
+        className="absolute bottom-32 right-[8%] hidden lg:block"
         animate={{ y: [0, 15, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       >
