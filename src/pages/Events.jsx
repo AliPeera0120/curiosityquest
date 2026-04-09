@@ -4,7 +4,15 @@ import { motion } from 'framer-motion';
 
 export default function Events() {
   const upcomingEvents = [
-    // Add upcoming events here
+    {
+      title: "CuriosityQuest at Earth Day Phoenixville",
+      date: "April 18th, 2026",
+      time: "12:00 PM – 4:00 PM",
+      ageGroup: "All Ages",
+      location: "Reservoir Park, Phoenixville",
+      description: "Join us at Phoenixville Earth Day for an afternoon of hands-on STEM and real-world environmental learning 🌎 We'll be running interactive experiments where you can explore how science helps protect our planet, including a live oil spill cleanup demo and more activities using everyday materials. Come by, get involved, and see how STEM can make a real impact in our ecosystem. Bring friends, stop by our booth, and learn something new!",
+      posterUrl: "https://media.base44.com/images/public/696594fc2acba2d4bc584513/5dbc64fbc_CuriosityQuestatEarthDayPhoenixville1.png"
+    }
   ];
 
   const events = [
@@ -76,15 +84,37 @@ export default function Events() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow border border-gray-100 p-6 flex flex-col sm:flex-row gap-4 items-start"
+                className="bg-white rounded-2xl shadow border border-gray-100 overflow-hidden"
               >
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-[#055b8e] mb-1" style={{ fontFamily: 'Nunito, sans-serif' }}>{event.title}</h3>
-                  <p className="text-[#ed7219] font-semibold mb-2">{event.date}</p>
-                  <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                    <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{event.time}</span>
-                    <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{event.location}</span>
-                    <span className="flex items-center gap-1"><Users className="w-4 h-4" />{event.ageGroup}</span>
+                <div className="grid lg:grid-cols-5 gap-0">
+                  {event.posterUrl && (
+                    <div className="lg:col-span-2 bg-gradient-to-br from-[#ed7219]/10 to-[#055b8e]/10 p-6 flex items-center justify-center">
+                      <img
+                        src={event.posterUrl}
+                        alt={`${event.title} Poster`}
+                        className="w-full max-w-xs rounded-xl shadow-lg"
+                      />
+                    </div>
+                  )}
+                  <div className={`${event.posterUrl ? 'lg:col-span-3' : 'lg:col-span-5'} p-6 lg:p-8`}>
+                    <span className="inline-block bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wide rounded-full px-3 py-1 mb-3">Upcoming</span>
+                    <h3 className="text-2xl font-bold text-[#055b8e] mb-1" style={{ fontFamily: 'Nunito, sans-serif' }}>{event.title}</h3>
+                    <p className="text-[#ed7219] font-semibold mb-4">{event.date}</p>
+                    <div className="flex flex-wrap gap-3 mb-4 text-sm">
+                      <span className="flex items-center gap-1 bg-[#055b8e]/5 rounded-full px-3 py-1">
+                        <Clock className="w-4 h-4 text-[#055b8e]" />
+                        <span className="text-[#055b8e] font-medium">{event.time}</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-[#055b8e]/5 rounded-full px-3 py-1">
+                        <MapPin className="w-4 h-4 text-[#ed7219]" />
+                        <span className="text-[#055b8e] font-medium">{event.location}</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-[#ed7219]/10 rounded-full px-3 py-1">
+                        <Users className="w-4 h-4 text-[#ed7219]" />
+                        <span className="text-[#ed7219] font-medium">{event.ageGroup}</span>
+                      </span>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">{event.description}</p>
                   </div>
                 </div>
               </motion.div>
