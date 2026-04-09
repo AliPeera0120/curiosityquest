@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from './utils';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, Instagram } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 export default function Layout({ children, currentPageName }) {
@@ -18,6 +19,21 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* Instagram Floating Button */}
+      <motion.a
+        href="https://www.instagram.com/curiosityquest25?igsh=MWoybDB1YW9xZjM4Zg%3D%3D&utm_source=qr"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white px-4 py-3 rounded-full shadow-xl font-semibold cursor-pointer"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        whileHover={{ scale: 1.08 }}
+        style={{ fontFamily: 'Nunito, sans-serif' }}
+      >
+        <Instagram className="w-5 h-5" />
+        <span className="text-sm">Follow Us!</span>
+      </motion.a>
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
         

@@ -47,21 +47,6 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Instagram Floating Button */}
-      <motion.a
-        href="https://www.instagram.com/curiosityquest25?igsh=MWoybDB1YW9xZjM4Zg%3D%3D&utm_source=qr"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white px-4 py-3 rounded-full shadow-xl font-semibold cursor-pointer"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        whileHover={{ scale: 1.08 }}
-        style={{ fontFamily: 'Nunito, sans-serif' }}
-      >
-        <Instagram className="w-5 h-5" />
-        <span className="text-sm">Follow Us!</span>
-      </motion.a>
-
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
         <div className="max-w-3xl">
