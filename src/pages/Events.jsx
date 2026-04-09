@@ -10,7 +10,7 @@ export default function Events() {
       time: "12:00 PM – 4:00 PM",
       ageGroup: "All Ages",
       location: "Reservoir Park, Phoenixville",
-      description: "Join us at Phoenixville Earth Day for an afternoon of hands-on STEM and real-world environmental learning 🌎 We'll be running interactive experiments where you can explore how science helps protect our planet, including a live oil spill cleanup demo and more activities using everyday materials. Come by, get involved, and see how STEM can make a real impact in our ecosystem. Bring friends, stop by our booth, and learn something new!",
+      description: "Join us at Phoenixville Earth Day for an afternoon of hands-on STEM and real-world environmental learning. We'll be running interactive experiments where you can explore how science helps protect our planet, including a live oil spill cleanup demo and more activities using everyday materials. Come by, get involved, and see how STEM can make a real impact in our ecosystem. Bring friends, stop by our booth, and learn something new!",
       posterUrl: "https://media.base44.com/images/public/696594fc2acba2d4bc584513/5dbc64fbc_CuriosityQuestatEarthDayPhoenixville1.png"
     }
   ];
