@@ -34,6 +34,19 @@ export default function Layout({ children, currentPageName }) {
         <span className="text-sm">Follow Us!</span>
       </motion.a>
 
+      <motion.a
+        href="https://hcb.hackclub.com/donations/start/curiosityquest"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-br from-[#ed7219] to-[#d86515] text-white px-4 py-3 rounded-full shadow-xl font-semibold cursor-pointer"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        whileHover={{ scale: 1.08 }}
+        style={{ fontFamily: 'Nunito, sans-serif' }}
+      >
+        <span className="text-sm">💛 Donate Now</span>
+      </motion.a>
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
         
